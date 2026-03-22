@@ -45,6 +45,22 @@ npm run dev
 - `lib/github.ts`: Polyfill between GraphQL and REST for user data extraction.
 - `components/RoadmapGraph.tsx`: Custom SVG-based graph renderer with interactive panning/zooming.
 
+## Troubleshooting & Fixes
+
+During the initial deployment and development, we hit a few common Next.js/TypeScript bottlenecks. Here’s the log:
+
+### 1. TypeScript `string | undefined` errors
+**Problem**: The strict Next.js build environment failed because `process.env` variables (Google Gemini API Key and Supabase connectivity) were typed as potentially `undefined`.
+**Fix**: Implemented explicit type assertions (`as string`) and robust environment variable guards in `lib/gemini.ts` and `lib/supabase.ts` to ensure build-time safety.
+
+### 2. ESLint Build Failures (Vercel)
+**Problem**: A missing dependency for `status` in a `useEffect` hook within `LoadingState.tsx` caused Vercel to fail the production build.
+**Fix**: Updated the `useEffect` dependency array and synced it with the internal component state.
+
+### 3. Deployment Pivot
+**Problem**: Initial attempts used **Firebase App Hosting**, but it required a more complex setup for a project already using **Supabase** as a primary database.
+**Fix**: Pivoted to **Vercel** for the frontend/API layer and scrubbed all Firebase traces (`.firebaserc`, `firebase.json`, `apphosting.yaml`) to keep the repository clean and optimized for Vercel's framework-aware deployment.
+
 ---
 
 Built by [Snehal Chetry](https://github.com/snehalchetry)
