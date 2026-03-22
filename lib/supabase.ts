@@ -22,12 +22,12 @@ function isPlaceholderValue(value: string | undefined) {
   );
 }
 
-function getRequiredEnv(value: string | undefined, name: string) {
+function getRequiredEnv(value: string | undefined, name: string): string {
   if (isPlaceholderValue(value)) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
 
-  return value;
+  return value as string;
 }
 
 export function isSupabaseConfigured() {
