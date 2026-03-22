@@ -274,7 +274,7 @@ export async function analyzeGitHubProfile(
   }
 
   try {
-    const client = new GoogleGenerativeAI(apiKey);
+    const client = new GoogleGenerativeAI(apiKey as string);
     const model = client.getGenerativeModel({
       model: GEMINI_MODEL,
       generationConfig: {
