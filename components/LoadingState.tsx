@@ -47,7 +47,7 @@ export function LoadingState({
     return () => {
       window.clearInterval(interval);
     };
-  }, [steps]);
+  }, [steps, status]);
 
   const activeStatus = status ?? steps[stepIndex];
   const safeProgress = Math.max(0, Math.min(progress ?? 8, 100));
